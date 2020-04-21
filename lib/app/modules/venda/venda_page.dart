@@ -19,6 +19,13 @@ class _VendaPageState extends ModularState<VendaPage, VendaController> {
   int _indiceAtual = 0; 
 
   @override
+  void initState() {    
+    super.initState();
+    //controller.loadFromApi();    
+    controller.listarProdutos();
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     List<Widget> telas = [

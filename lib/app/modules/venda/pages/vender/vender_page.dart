@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:pdv_elevati/app/modules/venda/pages/vender/vender_controller.dart';
+import 'package:pdv_elevati/app/modules/venda/venda_controller.dart';
 import 'package:pdv_elevati/app/modules/venda/venda_module.dart';
 
 class VenderPage extends StatefulWidget {
@@ -12,37 +12,84 @@ class VenderPage extends StatefulWidget {
 }
 
 class _VenderPageState extends State<VenderPage> {
-  var controller = VendaModule.to.get<VenderController>();
-  
-  @override
-  void initState() {
-    super.initState();
-    controller.listarProdutos();
-  }
+  var controller = VendaModule.to.get<VendaController>();
 
   @override
-  Widget build(BuildContext context) {     
+  Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
         bool result = false;
-        controller.listarProdutos(produtos: controller.indice);
+        if (controller.indice.length > 0) {
+          controller.listarProdutos(voltar: true);
+          result = false;
+        } else {
+          await showDialog(
+              context: context,
+              child: AlertDialog(
+                content: Text("Você deseja realmente sair?"),
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text("Sim"),
+                    onPressed: () {
+                      result = true;
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  FlatButton(
+                    child: Text("Não"),
+                    onPressed: () {
+                      result = false;
+                      Navigator.of(context).pop();
+                    },
+                  )
+                ],
+              ));
+        }
         return result;
       },
       child: Scaffold(
-            body: Stack(
-              children: <Widget>[Observer(
-          builder: (_){
-              return GridView.count(
-                crossAxisCount: 3,
-                childAspectRatio: MediaQuery.of(context).size.aspectRatio * 3,
-                children: controller.botoes,
-                padding: EdgeInsets.all(8),
-                crossAxisSpacing: 3,
-                mainAxisSpacing: 3,
-          );
-          },     
-        ),],
+        body: Column(
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(left: 8, top: 6),
+                  child: RaisedButton(
+                    onPressed: () {
+                      controller.listarProdutos();
+                    },
+                    color: Theme.of(context).accentColor,
+                    child: Icon(Icons.home),
+                  ),
+                )
+              ],
             ),
+            Observer(
+              builder: (_) {                
+           
+            if(controller.botoes == null){
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+
+                return Expanded(
+                  child: GridView.count(
+                    shrinkWrap: true,
+                    crossAxisCount: 3,
+                    childAspectRatio:
+                        MediaQuery.of(context).size.aspectRatio * 3,
+                    children: controller.botoes,
+                    padding: EdgeInsets.fromLTRB(8, 6, 8, 8),
+                    crossAxisSpacing: 3,
+                    mainAxisSpacing: 3,
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

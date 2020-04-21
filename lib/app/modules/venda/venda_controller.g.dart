@@ -45,6 +45,40 @@ mixin _$VendaController on _VendaControllerBase, Store {
     }, _$totalCompraAtom, name: '${_$totalCompraAtom.name}_set');
   }
 
+  final _$indiceAtom = Atom(name: '_VendaControllerBase.indice');
+
+  @override
+  List<dynamic> get indice {
+    _$indiceAtom.context.enforceReadPolicy(_$indiceAtom);
+    _$indiceAtom.reportObserved();
+    return super.indice;
+  }
+
+  @override
+  set indice(List<dynamic> value) {
+    _$indiceAtom.context.conditionallyRunInAction(() {
+      super.indice = value;
+      _$indiceAtom.reportChanged();
+    }, _$indiceAtom, name: '${_$indiceAtom.name}_set');
+  }
+
+  final _$botoesAtom = Atom(name: '_VendaControllerBase.botoes');
+
+  @override
+  List<Widget> get botoes {
+    _$botoesAtom.context.enforceReadPolicy(_$botoesAtom);
+    _$botoesAtom.reportObserved();
+    return super.botoes;
+  }
+
+  @override
+  set botoes(List<Widget> value) {
+    _$botoesAtom.context.conditionallyRunInAction(() {
+      super.botoes = value;
+      _$botoesAtom.reportChanged();
+    }, _$botoesAtom, name: '${_$botoesAtom.name}_set');
+  }
+
   final _$_VendaControllerBaseActionController =
       ActionController(name: '_VendaControllerBase');
 
@@ -69,9 +103,19 @@ mixin _$VendaController on _VendaControllerBase, Store {
   }
 
   @override
+  void listarProdutos({int produto, bool voltar = false}) {
+    final _$actionInfo = _$_VendaControllerBaseActionController.startAction();
+    try {
+      return super.listarProdutos(produto: produto, voltar: voltar);
+    } finally {
+      _$_VendaControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     final string =
-        'quantidadeProdutos: ${quantidadeProdutos.toString()},totalCompra: ${totalCompra.toString()}';
+        'quantidadeProdutos: ${quantidadeProdutos.toString()},totalCompra: ${totalCompra.toString()},indice: ${indice.toString()},botoes: ${botoes.toString()}';
     return '{$string}';
   }
 }
