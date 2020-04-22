@@ -1,12 +1,14 @@
 import 'dart:convert';
 
-List<Produto> employeeFromJson(String str) =>
+import 'package:pdv_elevati/app/shared/db_entity.dart';
+
+List<Produto> produtoFromJson(String str) =>
     List<Produto>.from(json.decode(str).map((x) => Produto.fromJson(x)));
 
-String employeeToJson(List<Produto> data) =>
+String produtoToJson(List<Produto> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Produto {
+class Produto extends DbEntity {
   int produtoId;
   int produtoGrupoId;
   String codBarras;

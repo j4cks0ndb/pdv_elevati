@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:pdv_elevati/app/shared/db_helper.dart';
 import 'splash_controller.dart';
 
 class SplashPage extends StatefulWidget {
@@ -14,29 +15,26 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends ModularState<SplashPage, SplashController> {
   //use 'controller' variable to access controller
 
-  ReactionDisposer disposer;
-
   @override
   void initState() {
     super.initState();
-    disposer = autorun((_) async {
-      //Future.delayed(Duration(seconds: 2)).then((value) => Modular.to.pushReplacementNamed('/venda/'));
-      var retorno = await controller.loadFromApi();
-      if(retorno){
-        Modular.to.pushReplacementNamed('/venda/');
-      }else{
-        Modular.to.pushReplacementNamed('/venda/');
-      }
+    Future futureA = Future.delayed(Duration(seconds: 3));
+    Future futureB = DbHelper.getInstance().db;   
+    Future futureC = controller.loadProdutoFromApi();
+    Future futureD = controller.loadProdutoGrupoFromApi();
+    // Usuario
+    //Future<Usuario> futureC = Usuario.get();
+
+    Future.wait([futureA,futureB,futureC,futureD]).then((List values) {
+      //Usuario user = values[2];
+      //print(user);
+
+      Modular.to.pushReplacementNamed('/venda/');
+      
     });
   }
 
-  @override
-  void dispose() {
-  
-    super.dispose();
-    disposer();
-  }
-
+ 
   @override
   Widget build(BuildContext context) {
     return Material(

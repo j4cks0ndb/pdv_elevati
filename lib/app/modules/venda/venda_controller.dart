@@ -11,16 +11,11 @@ abstract class _VendaControllerBase with Store {
   final ProdutoRepository _produtoRepository;
   _VendaControllerBase(this._produtoRepository);
 
-  Future loadFromApi() async {
-    await _produtoRepository.syncProdutos();
-    listarProdutos();
-  }
+  @observable
+  int quantidadeProdutos = 26;
 
   @observable
-  int quantidadeProdutos = 0;
-
-  @observable
-  double totalCompra = 0;
+  double totalCompra = 225.96;
 
   @observable
   List indice = [];
@@ -42,7 +37,7 @@ abstract class _VendaControllerBase with Store {
   Future<void> listarProdutos({int produto, bool voltar = false}) async {
     Map<int, String> produtos = new Map<int, String>();
     List<Widget> retorno = [];
-    List<Produto> prod = await _produtoRepository.getAllProdutos();
+    List<Produto> prod = await _produtoRepository.findAll();
 
     if (voltar) {
       if (indice.length > 1) {
@@ -88,5 +83,9 @@ abstract class _VendaControllerBase with Store {
       });
       botoes = retorno;
     }
+  }
+
+  Future loadFromApi() async {
+    await _produtoRepository.atualizaTabela();
   }
 }

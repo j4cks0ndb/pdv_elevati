@@ -36,7 +36,7 @@ class _VendaPageState extends ModularState<VendaPage, VendaController> {
 
     return Scaffold(
       appBar: AppBar(        
-        title: Text(widget.title, style: TextStyle(color: Colors.blueGrey),),        
+        title: Text(widget.title, style: TextStyle(color: Colors.white),),        
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -50,7 +50,7 @@ class _VendaPageState extends ModularState<VendaPage, VendaController> {
           ),
         ),
         iconTheme: IconThemeData(
-          color: Colors.grey
+          color: Colors.white
         ),
         backgroundColor: Colors.white,
         actions: <Widget>[
@@ -113,7 +113,11 @@ class _VendaPageState extends ModularState<VendaPage, VendaController> {
                               controller.totalCompra.toString()
                             :
                               "Pagamento"                            
-                          ),
+                          ,
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Theme.of(context).primaryColor
+                          ),),
                 icon: Icon(Icons.attach_money)
             ),            
           ]
