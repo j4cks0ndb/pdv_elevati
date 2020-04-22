@@ -1,7 +1,6 @@
 import 'package:flutter_modular/flutter_modular_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:pdv_elevati/app/modules/splash/splash_controller.dart';
 import 'package:pdv_elevati/app/modules/splash/splash_module.dart';
 
 void main() {

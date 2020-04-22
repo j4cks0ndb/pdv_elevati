@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:connectivity/connectivity.dart';
 import 'package:mobx/mobx.dart';
 import 'package:pdv_elevati/app/modules/venda/repositories/produto_repository.dart';
 
