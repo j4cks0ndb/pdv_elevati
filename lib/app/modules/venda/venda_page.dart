@@ -35,8 +35,20 @@ class _VendaPageState extends ModularState<VendaPage, VendaController> {
     ];
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title, style: TextStyle(color: Colors.blueGrey),),
+      appBar: AppBar(        
+        title: Text(widget.title, style: TextStyle(color: Colors.blueGrey),),        
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: <Color>[
+                Colors.red,
+                Colors.blue
+              ]
+            )
+          ),
+        ),
         iconTheme: IconThemeData(
           color: Colors.grey
         ),
