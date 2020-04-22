@@ -43,6 +43,7 @@ class DBProvider {
   createProduto(Produto novoProduto) async {
     await deleteAllProdutos();
     final db = await database;
+    print(novoProduto);
     final res = await db.insert('Produtos', novoProduto.toJson());
 
     return res;

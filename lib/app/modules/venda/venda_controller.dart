@@ -8,12 +8,11 @@ part 'venda_controller.g.dart';
 class VendaController = _VendaControllerBase with _$VendaController;
 
 abstract class _VendaControllerBase with Store {
-
   final ProdutoRepository _produtoRepository;
   _VendaControllerBase(this._produtoRepository);
 
-  Future loadFromApi() async{
-    await _produtoRepository.getAllProdutos();
+  Future loadFromApi() async {
+    await _produtoRepository.syncProdutos();
     listarProdutos();
   }
 
@@ -40,10 +39,10 @@ abstract class _VendaControllerBase with Store {
   }
 
   @action
-  void listarProdutos({int produto, bool voltar = false}) {
-    Map<int, String> produtos;
+  Future<void> listarProdutos({int produto, bool voltar = false}) async {
+    Map<int, String> produtos = new Map<int, String>();
     List<Widget> retorno = [];
-    Future<List<Produto>> _produtos = _produtoRepository.getAllProdutos();    
+    List<Produto> prod = await _produtoRepository.getAllProdutos();
 
     if (voltar) {
       if (indice.length > 1) {
@@ -55,11 +54,14 @@ abstract class _VendaControllerBase with Store {
     }
 
     if (produto == null) {
-      _produtos.then((prod){
-        prod.forEach((prd){
-          produtos.addAll({prd.produtoId:"$prd.produto"});
+      //_produtos.then((prod) {
+        prod.forEach((prd) {
+          if((prd.produtoId != null) && (prd.produto != null)){
+            produtos.putIfAbsent(prd.produtoId,() => prd.produto);  
+          }
+          
         });
-      });
+      //});
       indice.clear();
     } else {
       produtos = {
@@ -73,16 +75,18 @@ abstract class _VendaControllerBase with Store {
       }
     }
 
-    produtos.forEach((id, nome) {
-      retorno.add(RaisedButton(
-        onPressed: () {
-          listarProdutos(produto: id);
-        },
-        child: Text(nome),
-        color: Color(0xff797ec2),
-        padding: EdgeInsets.all(8),
-      ));
-    });
-    botoes = retorno;
+    if (produtos != null) {
+      produtos.forEach((id, nome) {
+        retorno.add(RaisedButton(
+          onPressed: () {
+            listarProdutos(produto: id);
+          },
+          child: Text(nome),
+          color: Color(0xff797ec2),
+          padding: EdgeInsets.all(8),
+        ));
+      });
+      botoes = retorno;
+    }
   }
 }

@@ -79,6 +79,14 @@ mixin _$VendaController on _VendaControllerBase, Store {
     }, _$botoesAtom, name: '${_$botoesAtom.name}_set');
   }
 
+  final _$listarProdutosAsyncAction = AsyncAction('listarProdutos');
+
+  @override
+  Future<void> listarProdutos({int produto, bool voltar = false}) {
+    return _$listarProdutosAsyncAction
+        .run(() => super.listarProdutos(produto: produto, voltar: voltar));
+  }
+
   final _$_VendaControllerBaseActionController =
       ActionController(name: '_VendaControllerBase');
 
@@ -97,16 +105,6 @@ mixin _$VendaController on _VendaControllerBase, Store {
     final _$actionInfo = _$_VendaControllerBaseActionController.startAction();
     try {
       return super.setTotalCompra(valor);
-    } finally {
-      _$_VendaControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void listarProdutos({int produto, bool voltar = false}) {
-    final _$actionInfo = _$_VendaControllerBaseActionController.startAction();
-    try {
-      return super.listarProdutos(produto: produto, voltar: voltar);
     } finally {
       _$_VendaControllerBaseActionController.endAction(_$actionInfo);
     }
