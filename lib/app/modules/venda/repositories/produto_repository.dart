@@ -19,7 +19,7 @@ class ProdutoRepository extends DbRepository<Produto> with Disposable{
     }
   }
 
-  Future<List<Produto>> findAllByTipo(String produto) async {
+  Future<List<Produto>> findAllByProduto(String produto) async {
     final dbClient = await db;
 
     final list = await dbClient.rawQuery('select * from produtos where produto =? ',[produto]);
@@ -27,6 +27,13 @@ class ProdutoRepository extends DbRepository<Produto> with Disposable{
     return list.map<Produto>((json) => fromJson(json)).toList();
   }
 
+  Future<List<Produto>> findAllByProdutoGrupoId(int produtoGrupoId) async {
+    final dbClient = await db;
+
+    final list = await dbClient.rawQuery('select * from Produtos where produtoGrupoId =? ',[produtoGrupoId]);
+
+    return list.map<Produto>((json) => fromJson(json)).toList();
+  }
   
 
  

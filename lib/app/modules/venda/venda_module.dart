@@ -1,4 +1,5 @@
 import 'package:pdv_elevati/app/modules/venda/pages/pagamento/pagamento_page.dart';
+import 'package:pdv_elevati/app/modules/venda/repositories/produto_grupo_repository.dart';
 import 'package:pdv_elevati/app/modules/venda/repositories/produto_repository.dart';
 import 'package:pdv_elevati/app/modules/venda/pages/pagamento/pagamento_controller.dart';
 import 'package:pdv_elevati/app/modules/venda/pages/lista_venda/lista_venda_controller.dart';
@@ -12,8 +13,9 @@ class VendaModule extends ChildModule {
         Bind((i) => ProdutoRepository()),
         Bind((i) => PagamentoController()),
         Bind((i) => ListaVendaController()),
-        Bind((i) => VendaController(i.get<ProdutoRepository>())),
+        Bind((i) => VendaController(i.get<ProdutoRepository>(),i.get<ProdutoGrupoRepository>())),
         Bind((i) => ProdutoRepository()),
+        Bind((i) => ProdutoGrupoRepository()),
       ];
 
   @override

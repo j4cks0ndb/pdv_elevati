@@ -83,7 +83,7 @@ class _VenderPageState extends State<VenderPage> {
                     children: controller.botoes,
                     padding: EdgeInsets.fromLTRB(8, 6, 8, 8),
                     crossAxisSpacing: 3,
-                    mainAxisSpacing: 3,
+                    mainAxisSpacing: 3,                 
                   ),
                 );
               },

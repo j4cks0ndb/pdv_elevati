@@ -79,6 +79,14 @@ mixin _$VendaController on _VendaControllerBase, Store {
     }, _$botoesAtom, name: '${_$botoesAtom.name}_set');
   }
 
+  final _$venderProdutoAsyncAction = AsyncAction('venderProduto');
+
+  @override
+  Future<void> venderProduto({int produto, bool voltar = false}) {
+    return _$venderProdutoAsyncAction
+        .run(() => super.venderProduto(produto: produto, voltar: voltar));
+  }
+
   final _$listarProdutosAsyncAction = AsyncAction('listarProdutos');
 
   @override
@@ -105,6 +113,16 @@ mixin _$VendaController on _VendaControllerBase, Store {
     final _$actionInfo = _$_VendaControllerBaseActionController.startAction();
     try {
       return super.setTotalCompra(valor);
+    } finally {
+      _$_VendaControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setBotoes(List<Widget> value) {
+    final _$actionInfo = _$_VendaControllerBaseActionController.startAction();
+    try {
+      return super.setBotoes(value);
     } finally {
       _$_VendaControllerBaseActionController.endAction(_$actionInfo);
     }
