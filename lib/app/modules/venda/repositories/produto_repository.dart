@@ -5,17 +5,17 @@ import 'package:pdv_elevati/app/shared/db_repository.dart';
 
 class ProdutoRepository extends DbRepository<Produto> with Disposable{
 
-  atualizaTabela() async {
-    var url = "http://54.233.230.74:8080/VeloService/listarProduto";
+  Future atualizaTabela() async {    
+    var url = "http://54.233.230.74:8080/VeloService/listarProduto";    
     try {
-      Response response = await Dio().get(url);
-      return (response.data as List).map((produto) {
-      print('Inserting $produto');
-      atualizaDB(Produto.fromJson(produto));
-    }).toList();
+      Response response = await Dio().get(url);      
+      var lista = response.data as List;
+      
+      lista.forEach((item) async {
+        await atualizaDB(Produto.fromJson(item));
+      });      
     } catch (e) {
-      print(e.message);
-      return null;
+      print(e.message);      
     }
   }
 

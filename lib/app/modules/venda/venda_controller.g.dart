@@ -82,9 +82,17 @@ mixin _$VendaController on _VendaControllerBase, Store {
   final _$venderProdutoAsyncAction = AsyncAction('venderProduto');
 
   @override
-  Future<void> venderProduto({int produto, bool voltar = false}) {
+  Future<void> venderProduto({int produto}) {
     return _$venderProdutoAsyncAction
-        .run(() => super.venderProduto(produto: produto, voltar: voltar));
+        .run(() => super.venderProduto(produto: produto));
+  }
+
+  final _$abrirVendaProdutoAsyncAction = AsyncAction('abrirVendaProduto');
+
+  @override
+  Future<void> abrirVendaProduto({int produto}) {
+    return _$abrirVendaProdutoAsyncAction
+        .run(() => super.abrirVendaProduto(produto: produto));
   }
 
   final _$listarProdutosAsyncAction = AsyncAction('listarProdutos');

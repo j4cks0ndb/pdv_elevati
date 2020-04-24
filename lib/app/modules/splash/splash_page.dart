@@ -16,20 +16,19 @@ class _SplashPageState extends ModularState<SplashPage, SplashController> {
   //use 'controller' variable to access controller
 
   @override
-  void initState() {
+  void initState(){
     super.initState();
-    Future futureA = Future.delayed(Duration(seconds: 3));
-    Future futureB = DbHelper.getInstance().db;   
+    Future futureA = Future.delayed(Duration(seconds: 1));
+    //Future futureB = DbHelper.getInstance().db;   
     Future futureC = controller.loadProdutoFromApi();
     Future futureD = controller.loadProdutoGrupoFromApi();
     // Usuario
     //Future<Usuario> futureC = Usuario.get();
 
-    Future.wait([futureA,futureB,futureC,futureD]).then((List values) {
+    Future.wait([futureA, futureC,futureD]).then((List values) async {
       //Usuario user = values[2];
       //print(user);
-
-      Modular.to.pushReplacementNamed('/venda/');
+      Modular.to.pushReplacementNamed('/venda/');      
       
     });
   }

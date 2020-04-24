@@ -16,6 +16,20 @@ const String dbsql_createdb = '''
     grupo TEXT,
     isAtivo INTEGER
   );   
+
+  CREATE TABLE Venda(
+    vendaId INTEGER PRIMARY KEY    
+  );
+
+  CREATE TABLE Venda(
+    id INTEGRER PRIMARY KEY,
+    vendaId INTEGER ,
+    produtoId INTEGER,
+    descricao TEXT,
+    quantidade REAL,
+    precoUnitario REAL,
+    valorTotal REAL
+  );
 ''';
 
 const String dbsql_updatedb_v2 = '''alter table ProdutoGrupos add column grupoNomeCompleto TEXT''';

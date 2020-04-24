@@ -14,12 +14,11 @@ abstract class _SplashControllerBase with Store {
 
   _SplashControllerBase([this._produtoRepository,this._produtoGrupoRepository]);
 
-  Future<bool> loadProdutoFromApi() async {
+  Future<bool> loadProdutoFromApi() async {    
     try {
-      final result = await InternetAddress.lookup('google.com');
+      var result = await InternetAddress.lookup('google.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        _produtoRepository.atualizaTabela();
-        return true;
+        return await _produtoRepository.atualizaTabela();
       }
     } on SocketException catch (_) {
       print('not connected');
@@ -32,7 +31,7 @@ abstract class _SplashControllerBase with Store {
     try {
       final result = await InternetAddress.lookup('google.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        _produtoGrupoRepository.atualizaTabela();
+        await _produtoGrupoRepository.atualizaTabela();
         return true;
       }
     } on SocketException catch (_) {

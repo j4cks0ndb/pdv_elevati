@@ -13,16 +13,17 @@ abstract class DbRepository<T extends DbEntity>{
   T fromJson(Map<String,dynamic> map);
 
   Future<int> atualizaDB(T entity) async {
+    await Future.delayed(Duration(seconds: 10));
     await deleteAll();    
     return await save(entity);
   }  
 
   Future<int> save(T entity) async {
-    var dbClient = await db;
-    var id = await dbClient.insert(tableName, entity.toJson(),
+    var dbClient = await db;        
+    await Future.delayed(Duration(seconds: 10));
+    return await dbClient.insert(tableName, entity.toJson(),
         conflictAlgorithm: ConflictAlgorithm.replace);
-    print('id: $id');
-    return id;
+    
   }
 
   Future<List<T>> findAll() async {
@@ -63,6 +64,7 @@ abstract class DbRepository<T extends DbEntity>{
   }
 
   Future<int> deleteAll() async {
+    await Future.delayed(Duration(seconds: 10));
     var dbClient = await db;
     return await dbClient.rawDelete('delete from $tableName');
   }

@@ -26,11 +26,11 @@ class DbHelper {
     String path = join(databasesPath, dbsql_dbName);
     print("db $path");
 
-    var db = await openDatabase(path, version: 2, onCreate: _onCreate, onUpgrade: _onUpgrade);
+    var db = await openDatabase(path, version: 1, onCreate: _onCreate, onUpgrade: _onUpgrade);
     return db;
   }
 
-  void _onCreate(Database db, int newVersion) async {
+  Future _onCreate(Database db, int newVersion) async {
 
     String s = dbsql_createdb;
 

@@ -9,9 +9,9 @@ class ProdutoGrupoRepository extends DbRepository<ProdutoGrupo> with Disposable{
     var url = "http://54.233.230.74:8080/VeloService/listarProdutoGrupo";
     try {
       Response response = await Dio().get(url);
-      return (response.data as List).map((produtoGrupo) {
+      return (response.data as List).map((produtoGrupo) async {
       print('Inserting $produtoGrupo');
-      atualizaDB(ProdutoGrupo.fromJson(produtoGrupo));
+      await atualizaDB(ProdutoGrupo.fromJson(produtoGrupo));
     }).toList();
     } catch (e) {
       print(e.message);

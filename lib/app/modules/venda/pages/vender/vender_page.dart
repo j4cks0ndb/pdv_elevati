@@ -66,24 +66,22 @@ class _VenderPageState extends State<VenderPage> {
               ],
             ),
             Observer(
-              builder: (_) {                
-           
-            if(controller.botoes == null){
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-
+              builder: (_) {
+                if (controller.botoes == null) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
                 return Expanded(
                   child: GridView.count(
-                    shrinkWrap: true,
+                    //shrinkWrap: true,
                     crossAxisCount: 3,
                     childAspectRatio:
-                        MediaQuery.of(context).size.aspectRatio * 3,
+                        MediaQuery.of(context).size.aspectRatio * 2,
                     children: controller.botoes,
                     padding: EdgeInsets.fromLTRB(8, 6, 8, 8),
                     crossAxisSpacing: 3,
-                    mainAxisSpacing: 3,                 
+                    mainAxisSpacing: 3,
                   ),
                 );
               },

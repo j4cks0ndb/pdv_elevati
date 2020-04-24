@@ -16,7 +16,7 @@ abstract class _VendaControllerBase with Store {
   _VendaControllerBase(this._produtoRepository, this._produtoGrupoRepository);
 
   @observable
-  int quantidadeProdutos = 26;
+  int quantidadeProdutos = 2;
 
   @observable
   double totalCompra = 225.96;
@@ -43,7 +43,12 @@ abstract class _VendaControllerBase with Store {
   }
 
   @action
-  Future<void> venderProduto({int produto, bool voltar = false}) async {
+  Future<void> venderProduto({int produto}) async {
+
+  }
+
+  @action
+  Future<void> abrirVendaProduto({int produto}) async {
 
   }
 
@@ -57,8 +62,8 @@ abstract class _VendaControllerBase with Store {
 
     if (voltar) {
       if (indice.length > 1) {
-        produto = indice.last;
         indice.removeLast();
+        produto = indice.last;        
       } else {
         produto = null;
       }
@@ -111,12 +116,19 @@ abstract class _VendaControllerBase with Store {
     List<Widget> retorno = [];
 
     lista.forEach((id, nome) {
+      if (nome.length > 41){
+        nome = nome.substring(0,41) + " ...";
+      }
+
       switch (tipo) {
         case "Produto":
           {
             retorno.add(RaisedButton(
               onPressed: () {
                 venderProduto(produto: id);
+              },
+              onLongPress: (){
+                abrirVendaProduto(produto: id);
               },
               child: Text(nome),
               color: Color(0xffc8a9d7),
@@ -127,13 +139,14 @@ abstract class _VendaControllerBase with Store {
         case "Grupo":
           {
             retorno.add(RaisedButton(
-              onPressed: () {
-                listarProdutos(produto: id);
-              },              
-              child: Text(nome),
-              color: Color(0xff7076cb),
-              padding: EdgeInsets.all(8),
-            ));
+                        onPressed: () {
+                          listarProdutos(produto: id);
+                        },                           
+                        child: Text(nome),
+                        color: Color(0xff7076cb),
+                        padding: EdgeInsets.all(8),                                        
+                      )
+            );            
           }
           break;
         default:
@@ -146,7 +159,5 @@ abstract class _VendaControllerBase with Store {
     return retorno;
   }
 
-  Future loadFromApi() async {
-    await _produtoRepository.atualizaTabela();
-  }
+ 
 }
